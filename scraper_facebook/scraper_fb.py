@@ -37,7 +37,7 @@ def login(driver, email, password):
   try:
     driver.find_element_by_xpath('//*[@id="email"]').send_keys(email + Keys.TAB + password + Keys.ENTER)
     sleep(3)
-    save_cookies(driver, COOKIE_FILE)
+    save_cookies(driver)
     print('---Login Success---')
   except Exception as e:
     print('---Login Failed---')
@@ -102,7 +102,7 @@ def get_following(driver, url, limit = 36):
   page = bs(driver.page_source, 'lxml')
 
   followings = page.find('div', {'data-pagelet':'ProfileAppSection_0'})
-  followings = [following['href'].strip('/') for following in followings.find_all('a', {'aria-hidden':'true', 'role':'link'})]
+  followings = [following['href'].strip('/') for following in followings.find_all('a', {'aria-hidden':'true', 'role':'link'})] if followings else []
   return followings if len(followings) <= limit else followings[:limit]
 
 
@@ -166,6 +166,11 @@ if __name__ == '__main__':
     else:
       login(driver, EMAIL, PASSWORD)
     sleep(2)
+
+    try:
+      driver.find_element_by_xpath("//button[text()='Accept All']").click()
+    except:
+      pass
 
     for url in profiles:
       print('---Getting Main Profile---')

@@ -10,7 +10,7 @@ PASSWORD = 'password here'
 COOKIE_FILE = 'cookies_fb.pkl'
 
 # Path where you want to save the scraped data
-DIR = r'C:\Users\Gray\scraper_facebook'
+DIR = r'C:\Users\Gray\Random\FreelanceJob\scraper_facebook'
 
 # Window size of the virtual browser
 WINDOW_SIZE = '2880,1800'
